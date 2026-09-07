@@ -1,0 +1,41 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>AlignMe - Posture History Heatmap</title>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+            <style>
+                body { margin: 0; padding: 0; background: #0f172a; font-family: sans-serif; color: #f8fafc; }
+                #header { padding: 15px 20px; background: #1e293b; border-bottom: 1px solid #334155; }
+                #map { height: calc(100vh - 70px); width: 100%; }
+                .marker-card { font-size: 13px; color: #0f172a; }
+            </style>
+        </head>
+        <body>
+            <div id="header">
+                <h2 style="margin: 0; font-size: 18px; color: #38BDF8;">🌍 AlignMe - Saved Posture Geographic History</h2>
+                <p style="margin: 4px 0 0 0; font-size: 12px; color: #94A3B8;">Aggregated compliance ratings from your saved session logs across locations.</p>
+            </div>
+            <div id="map"></div>
+
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+            <script>
+                var map = L.map('map').setView([28.6139, 77.2090], 12);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                var markersData = [{"lat": 28.7041, "lng": 77.1025, "title": "Location: Home", "popup": "<b>Home</b><br>Average Compliance: <b>60.7%</b><br>Total Sessions: 9"}];
+
+                markersData.forEach(function(item) {
+                    var marker = L.marker([item.lat, item.lng]).addTo(map);
+                    marker.bindPopup("<div class='marker-card'>" + item.popup + "</div>");
+                });
+            </script>
+        </body>
+        </html>
+        
